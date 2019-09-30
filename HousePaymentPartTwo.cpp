@@ -38,6 +38,7 @@ void printFirstEight(double principal, double yir, double years) {
   double totalPaid, monthlyInterest, principalPaid, remainingBalance;
   cout << "\n|                                                                         |";
   for(int i=0; i<8; i++) {
+    cout << "\n|       " << i << "                                                                 |";
     
   }
 }
