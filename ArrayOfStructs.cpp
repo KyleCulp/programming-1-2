@@ -1,10 +1,17 @@
 #include <iostream>
 #include <string>
-#include <sstream>
+#include <math.h> 
+#include <iomanip> 
 using namespace std;
 
+/*
+* Author: Kyle Culp
+* Assignment: Sort an Array of Structs
+*/
+
+
 // Imitating JSON here with arrays
-string PersonData[11][5] = {
+string Data[11][5] = {
 	{ 
 		"Kyle",
 		"Culp",
@@ -19,6 +26,7 @@ string PersonData[11][5] = {
 		"75 inches"
 	},{ 
 		"Bobert",
+		"Ronsley",
 		"Male",
 		"25",
 		"56 inches"
@@ -38,7 +46,7 @@ string PersonData[11][5] = {
 		"Donald",
 		"Trump",
 		"Male",
-		"20",
+		"66",
 		"76 inches"
 	},{ 
 		"Bobbie",
@@ -50,7 +58,7 @@ string PersonData[11][5] = {
 		"Jamie",
 		"Griffin",
 		"Female",
-		"20",
+		"22",
 		"66 inches"
 	},{ 
 		"Blake",
@@ -74,7 +82,7 @@ string PersonData[11][5] = {
 };
 
 
-
+// Person Struct with 5 Fields
 struct Person {
 	string first_name;
 	string last_name;
@@ -86,14 +94,69 @@ struct Person {
 // Global Array of Structs
 Person People[11];
 
-
-
-
-int main () {
-
-
-	return 0;
+void fillArray(int dataSize) {
+	// [0] = first_name
+	// [1] = last_name
+	// [2] = gender
+	// [3] = age 
+	// [4] = height
+	for(int i; i < dataSize; i++) {
+		People[i].first_name = Data[i][0];
+		People[i].last_name = Data[i][1];
+		People[i].gender = Data[i][2];
+		People[i].age = Data[i][3];
+		People[i].height = Data[i][4];
+	}
 }
 
-void printmovie (movies_t movie) {
+void printArray(int dataSize) {
+	cout << setprecision(2) << fixed;
+	cout << " ------------------------------------------------------";
+	cout << setw(1) << " |\n";
+	cout << setw(1) << "|";
+	cout << setw(12) << "First Name";
+	cout << setw(12) << "Last Name";
+	cout << setw(12) << "Gender";
+	cout << setw(6) << "Age";
+	cout << setw(12) << "Height";
+	cout << setw(1) << " |\n";
+
+	for(int i = 0; i < dataSize; i++) {
+		cout << setw(1) << "|";
+		cout << setw(12) << People[i].first_name;
+		cout << setw(12) << People[i].last_name;
+		cout << setw(12) << People[i].gender;
+		cout << setw(6) << People[i].age;
+		cout << setw(12) << People[i].height;
+		cout << setw(1) << " |\n";
+	}
+}
+
+void sortArrayByAge() {
+	Person DataHolder[2];
+
+	
+
+}
+
+void sortArrayByGender() {
+
+}
+
+int main () {
+	// Get Amount of Rows in 2D array
+	int dataSize = sizeof Data / sizeof Data[0];
+	// Fill Array of Structs with test data
+	fillArray(dataSize);
+	// Print Unsorted Array
+	printArray(dataSize);
+
+	// Sort Array by Age, ascending order
+	// Print Sorted Array
+	printArray(dataSize);
+	// Sort Array by Gender, descending order
+	// Print Sorted Array
+	printArray(dataSize);
+
+	return 0;
 }
