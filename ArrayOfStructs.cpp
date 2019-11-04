@@ -1,11 +1,14 @@
 #include <iostream>
 #include <string>
+#include <math.h> 
 #include <iomanip> 
 using namespace std;
 
 /*
 * Author: Kyle Culp
 * Assignment: Sort an Array of Structs
+* Due: November 4th, 2019
+* Description: Prints out 3 tables from an array of data. One table is unsorted, and the other two are sorted differently from each other.
 */
 
 
@@ -27,7 +30,7 @@ string Data[11][5] = {
 		"Bobert",
 		"Ronsley",
 		"Male",
-		"25",
+		"79",
 		"56 inches"
 	},{ 
 		"Rick",
@@ -132,15 +135,14 @@ void printArray(int dataSize) {
 	cout << " ------------------------------------------------------\n";
 }
 
+
 void sortArrayByAge(int dataSize) {
 	for(int i = 1; i < dataSize; i++) {
 		for(int k = 0; k < dataSize - i; k++) {
             Person PersonHolder;
-
             // Convert ages to ints
 			int age = atoi(People[k].age.c_str());
             int nextAge = atoi(People[k + 1].age.c_str());
-
 			if(age > nextAge) {
                 // Assign current person to temp
                 PersonHolder = People[k];
@@ -157,22 +159,22 @@ void sortArrayByLastName(int dataSize) {
 	for(int i = 1; i < dataSize; i++) {
 		for(int k = 0; k < dataSize - i; k++) {
             Person PersonHolder;
-
-
-			if(People[i].last_name < People[i + 1].last_name) {
+            // If Current is less than 0, then next item is greater
+            int identifier = People[k].last_name.compare(People[k + 1].last_name);
+            if(identifier < 0) {
                 // Assign current person to temp
                 PersonHolder = People[k];
                 // Sign next person over current person
                 People[k] = People[k + 1];
                 // Sign current person to next persons spot
                 People[k + 1] = PersonHolder;
-            }
+           }
 		}
 	}
 }
 
-int main () {
 
+int main () {
 	// Get Amount of Rows in 2D array
 	int dataSize = sizeof Data / sizeof Data[0];
 	// Fill Array of Structs with test data
