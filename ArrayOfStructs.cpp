@@ -53,23 +53,23 @@ string PersonData[11][5] = {
 		"20",
 		"66 inches"
 	},{ 
-		"Donald",
-		"Trump",
+		"Blake",
+		"Adams",
 		"Male",
 		"20",
-		"76 inches"
+		"44 inches"
 	},{ 
-		"Donald",
-		"Trump",
+		"Barrack",
+		"Obama",
 		"Male",
-		"20",
-		"76 inches"
+		"64",
+		"73 inches"
 	},{ 
-		"Donald",
-		"Trump",
+		"Bernie",
+		"Sanders",
 		"Male",
-		"20",
-		"76 inches"
+		"104",
+		"69 inches"
 	},
 };
 
