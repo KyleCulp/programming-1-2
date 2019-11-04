@@ -1,7 +1,5 @@
 #include <iostream>
 #include <string>
-#include <sstream>
-#include <math.h> 
 #include <iomanip> 
 using namespace std;
 
@@ -120,6 +118,7 @@ void printArray(int dataSize) {
 	cout << setw(6) << "Age";
 	cout << setw(12) << "Height";
 	cout << setw(1) << " |\n";
+	cout << " ------------------------------------------------------\n";
 
 	for(int i = 0; i < dataSize; i++) {
 		cout << setw(1) << "|";
@@ -130,6 +129,7 @@ void printArray(int dataSize) {
 		cout << setw(12) << People[i].height;
 		cout << setw(1) << " |\n";
 	}
+	cout << " ------------------------------------------------------\n";
 }
 
 void sortArrayByAge(int dataSize) {
@@ -153,16 +153,13 @@ void sortArrayByAge(int dataSize) {
 	}
 }
 
-void sortArrayByGender(int dataSize) {
+void sortArrayByLastName(int dataSize) {
 	for(int i = 1; i < dataSize; i++) {
 		for(int k = 0; k < dataSize - i; k++) {
             Person PersonHolder;
 
-            // Convert ages to ints
-			int age = atoi(People[k].age.c_str());
-            int nextAge = atoi(People[k + 1].age.c_str());
 
-			if(age > nextAge) {
+			if(People[i].last_name < People[i + 1].last_name) {
                 // Assign current person to temp
                 PersonHolder = People[k];
                 // Sign next person over current person
@@ -172,14 +169,6 @@ void sortArrayByGender(int dataSize) {
             }
 		}
 	}
-}
-
-void swap(struct Person* i, struct Person* j) {
-    Person t;
-    t = *i;
-    *i = *j;
-    *j = t;
-
 }
 
 int main () {
@@ -196,8 +185,8 @@ int main () {
 	// Print Sorted Array
 	printArray(dataSize);
 
-	// Sort Array by Gender, descending order
-    // sortArrayByGender(dataSize);
+	// Sort Array by Last Name, descending order
+    sortArrayByLastName(dataSize);
 	// Print Sorted Array
 	printArray(dataSize);
 
