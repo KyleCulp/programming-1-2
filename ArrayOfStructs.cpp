@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <math.h> 
 #include <iomanip> 
 using namespace std;
@@ -91,8 +92,7 @@ struct Person {
 	string height;
 } first_name, last_name, gender, age, height;
 
-// Global Array of Structs
-Person People[11];
+Person People[12];
 
 void fillArray(int dataSize) {
 	// [0] = first_name
@@ -132,18 +132,58 @@ void printArray(int dataSize) {
 	}
 }
 
-void sortArrayByAge() {
-	Person DataHolder[2];
+void sortArrayByAge(int dataSize) {
+	for(int i = 1; i < dataSize; i++) {
+		for(int k = 0; k < dataSize - i; k++) {
+            Person PersonHolder;
 
-	
+            // Convert ages to ints
+			int age = atoi(People[k].age.c_str());
+            int nextAge = atoi(People[k + 1].age.c_str());
 
+			if(age > nextAge) {
+                // Assign current person to temp
+                PersonHolder = People[k];
+                // Sign next person over current person
+                People[k] = People[k + 1];
+                // Sign current person to next persons spot
+                People[k + 1] = PersonHolder;
+            }
+		}
+	}
 }
 
-void sortArrayByGender() {
+void sortArrayByGender(int dataSize) {
+	for(int i = 1; i < dataSize; i++) {
+		for(int k = 0; k < dataSize - i; k++) {
+            Person PersonHolder;
+
+            // Convert ages to ints
+			int age = atoi(People[k].age.c_str());
+            int nextAge = atoi(People[k + 1].age.c_str());
+
+			if(age > nextAge) {
+                // Assign current person to temp
+                PersonHolder = People[k];
+                // Sign next person over current person
+                People[k] = People[k + 1];
+                // Sign current person to next persons spot
+                People[k + 1] = PersonHolder;
+            }
+		}
+	}
+}
+
+void swap(struct Person* i, struct Person* j) {
+    Person t;
+    t = *i;
+    *i = *j;
+    *j = t;
 
 }
 
 int main () {
+
 	// Get Amount of Rows in 2D array
 	int dataSize = sizeof Data / sizeof Data[0];
 	// Fill Array of Structs with test data
@@ -152,9 +192,12 @@ int main () {
 	printArray(dataSize);
 
 	// Sort Array by Age, ascending order
+	sortArrayByAge(dataSize);
 	// Print Sorted Array
 	printArray(dataSize);
+
 	// Sort Array by Gender, descending order
+    // sortArrayByGender(dataSize);
 	// Print Sorted Array
 	printArray(dataSize);
 
