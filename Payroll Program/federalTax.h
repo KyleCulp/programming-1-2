@@ -1,21 +1,14 @@
-#include "federalTax.h"
 
 // Author: Kyle Culp
-// File: federalTax.cpp
+// File: federalTax.h
 
-double federalTaxCost(double PYE) {
+#if __INCLUDE_LEVEL__ < 1
+cout << "Help"
+#endif
+#ifndef FEDERALTAX_H
+#define FEDERALTAX_H
 
-	if(PYE < 8000) {
-		return 0;
-	}
-	if(8000 <= PYE && PYE < 20000) {
-		return ((PYE - 8000) * 0.15) / 52;
-	}
-	if(PYE >= 20000) {
-		double middlePay = ((20000 - 8000) * 0.15);
-		return (middlePay + ((PYE - 20000) * 0.28)) / 52;
-	}
 
-	// Default return 0
-	return 0;
-} 
+double federalTaxCost(double PYE);
+
+#endif
