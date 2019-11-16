@@ -1,10 +1,17 @@
+#if __INCLUDE_LEVEL__ < 1
+
 #include <iostream>
 #include <iomanip>
 #include <string>
 #include <fstream>
 #include "grossPay.h"
 #include "insuranceCost.h"
+#include "federalTax.h"
+
+#endif
+
 using namespace std;
+
 
 /*
 * Author: Kyle Culp
@@ -14,17 +21,31 @@ using namespace std;
 */
 
 
+// Test if Files Exist
+bool testFile() {
+	ifstream payRoll("payroll.fil"); 
+	if(!payRoll) {
+		return false;
+	}
+
+	return true;
+}
+
+// External Functions
+double grossPay(double rate, double hours);
+double insuranceCost(char inscode);
+double federalTaxCost(double PYE);
+
 struct Person {
 	string name;
 	double rate;
 	double hours;
 	double inscode;
-	double socSEC;
+	double socialTax;
 	double stateTax;
 	double fedTax;
 	double net;
-} name, hours, inscode, socSEC, stateTax, fedTax, net;
-
+} name, hours, inscode, socialTax, stateTax, fedTax, net;
 
 int getTotalPeople() {
     ifstream payRoll("payroll.fil"); 
@@ -41,44 +62,48 @@ int getTotalPeople() {
 }
 
 void printHeading() {
-	cout << setprecision(2) << fixed;
-	cout << setw(1) << "\n";
+	cout << setw(2) << setprecision(2) << fixed;
 	cout << setw(16) << "NAME";
 	cout << setw(8) << "RATE";
 	cout << setw(8) << "HOURS";
 	cout << setw(8) << "INS";
 	cout << setw(8) << "SOC";
 	cout << setw(8) << "STATE";
-	cout << setw(8) << "FED";
-	cout << setw(8) << "NET";
+	cout << setw(10) << "FED";
+	cout << setw(10) << "NET";
 	cout << setw(1) << "\n";
+	// New Line
 	cout << setw(40) << "";
 	cout << setw(8) << "SEC";
 	cout << setw(8) << "TAX";
-	cout << setw(8) << "TAX";
+	cout << setw(10) << "TAX";
 	cout << setw(1) << "\n";
 	cout << setw(1) << "\n";
 }
 
-void printTable(Person People[]) {
-	for(int i=0; i < ; i++) {
+
+void printPeople(Person People[], int peopleSize) {
+	for(int i=0; i < peopleSize; i++) {
 		cout << setw(16) << People[i].name;
-		cout << setw(8) << "RATE";
-		cout << setw(8) << "HOURS";
-		cout << setw(8) << "INS";
-		cout << setw(8) << "SOC";
-		cout << setw(8) << "STATE";
-		cout << setw(8) << "FED";
-		cout << setw(8) << "NET";
+		cout << setw(4) << People[i].rate; // Unsure why it needs to be 4
+		cout << setw(8) << People[i].hours;
+		cout << setw(8) << People[i].inscode;
+		cout << setw(8) << People[i].socialTax;
+		cout << setw(8) << People[i].stateTax;
+		cout << setw(10) << People[i].fedTax;
+		cout << setw(10) << People[i].net;
+		cout << setw(1) << "\n";
 	}
 }
 
-
-
-double grossPay(double rate, double hours);
-double insuranceCost(char inscode);
-
 int main () {
+	// Initial File Check
+	bool payRollExist = testFile();
+	if(!payRollExist) {
+		cout << "Please verify that payroll.fil exist";
+		return 0;
+	}
+
 	// Declare Variables
     char cname[20];
     double rate, hours;
@@ -88,7 +113,7 @@ int main () {
 	// Setup Functions
 	printHeading();
 	int totalPeople = getTotalPeople();
-	Person People[totalPeople + 1];
+	Person People[totalPeople];
 
     ifstream payRoll("payroll.fil"); // open the input file
     while (payRoll.get(cname, 21)) {  // read in 20 chars from the input file
@@ -97,6 +122,11 @@ int main () {
 
 		double gross = grossPay(rate, hours);
 		double insCost = insuranceCost(inscode);
+		double socialCost = gross * 0.07;
+		double stateTax = gross * 0.03;
+		double PYE = gross * 52;
+		double fedTax = federalTaxCost(PYE);
+		double netPay = gross - insCost - socialCost - stateTax - fedTax;
 
 		// Declare person
 		Person person;
@@ -105,10 +135,17 @@ int main () {
 		person.rate = rate;
 		person.hours = hours;
 		person.inscode = insCost;
+		person.socialTax = socialCost;
+		person.stateTax = stateTax;
+		person.fedTax = fedTax;
+		person.net = netPay;
 
 		People[loopTracker] = person;
 		loopTracker++;
-      } 
+	}
+
+	printPeople(People, loopTracker);
+
     payRoll.close();  // close the input file
     return 0;
   }
