@@ -1,7 +1,11 @@
+#if __INCLUDE_LEVEL__ < 1
+
 #include <string>
 #include <iostream>
 #include "insuranceCost.h"
 using namespace std;
+
+#endif
 
 // Author: Kyle Culp
 // File: insuranceCost.cpp
