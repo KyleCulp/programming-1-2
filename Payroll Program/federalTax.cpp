@@ -1,4 +1,8 @@
+#if __INCLUDE_LEVEL__ < 1
+
 #include "federalTax.h"
+
+#endif
 
 // Author: Kyle Culp
 // File: federalTax.cpp
