@@ -1,4 +1,8 @@
+#if __INCLUDE_LEVEL__ < 1
+
 #include "grossPay.h"
+
+#endif
 
 // Author: Kyle Culp
 // File: grossPay.cpp
